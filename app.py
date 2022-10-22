@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-import sklearn
+import sklearn 
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_squared_error, r2_score
@@ -9,7 +9,7 @@ from sklearn.datasets import load_diabetes, load_boston
 #---------------------------------------------#
 # Page layout
 ## Page expands to full width
-st.set_page_config(page_title = 'ML App - An Intro to Machine Learning and RandomForest',
+st.set_page_config(page_title = 'ML App - An Intro to Machine Learning and Random Forest',
     layout='wide')
 
 #---------------------------------------------#
@@ -67,7 +67,7 @@ def build_model(df):
 
 #---------------------------------#
 st.write("""
-# Introduction to Machine Learning with Random Forest in Python
+# Introduction to Machine Learning in Python with Random Forest
 
 In this simple-to-use web application, we use the *RandomForestRegressor()* function from Scikit-Learn in Python to build a regression model using the **Random Forest** algorithm.
 
