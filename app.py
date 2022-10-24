@@ -3,7 +3,7 @@ import pandas as pd
 import sklearn
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
-from sklearn.metrics import mean_squared_error, r2_score
+from sklearn.metrics import r2_score, mean_squared_error, mean_absolute_percentage_error, median_absolute_error, max_error
 from sklearn.datasets import load_diabetes, load_boston
 
 #---------------------------------------------#
@@ -19,7 +19,7 @@ def build_model(df):
     Y = df.iloc[:,-1] # Assigning the target column to 'Y'
 
     # Data splitting
-    X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=(100-split_size)/100)
+    X_train, X_test, Y_train, Y_test = train_test_split( X, Y, test_size = (100-split_size)/100 )
     
     st.markdown('**1.2. Data Splits**')
     st.write('Training Set')
@@ -28,9 +28,9 @@ def build_model(df):
     st.info(X_test.shape)
 
     st.markdown('**1.3. Variable Details:**')
-    st.write('X Variable')
+    st.write('X. Variable(s)')
     st.info(list(X.columns))
-    st.write('Y Variable')
+    st.write('Y. Variable')
     st.info(Y.name)
 
     rf = RandomForestRegressor(n_estimators=parameter_n_estimators,
@@ -46,6 +46,7 @@ def build_model(df):
 
     st.subheader('2. Model Performance')
 
+
     st.markdown('**2.1. Training Set**')
     Y_pred_train = rf.predict(X_train)
     st.write('Coefficient of Determination ($R^2$):')
@@ -54,6 +55,16 @@ def build_model(df):
     st.write('Error (MSE or MAE):')
     st.info( mean_squared_error(Y_train, Y_pred_train) )
 
+    st.write('Mean Absolute Percentage Deviation:')
+    st.info( mean_absolute_percentage_error(Y_train, Y_pred_train) )
+
+    st.write('Median Absolute Error:')
+    st.info( median_absolute_error(Y_train, Y_pred_train) )
+
+    st.write('Max Error:')
+    st.info( max_error(Y_train, Y_pred_train) )
+
+
     st.markdown('**2.2. Test Set**')
     Y_pred_test = rf.predict(X_test)
     st.write('Coefficient of Determination ($R^2$):')
@@ -61,6 +72,16 @@ def build_model(df):
 
     st.write('Error (MSE or MAE):')
     st.info( mean_squared_error(Y_test, Y_pred_test) )
+
+    st.write('Mean Absolute Percentage Deviation:')
+    st.info( mean_absolute_percentage_error(Y_test, Y_pred_test) )
+
+    st.write('Median Absolute Error:')
+    st.info( median_absolute_error(Y_test, Y_pred_test) )
+
+    st.write('Max Error:')
+    st.info( max_error(Y_test, Y_pred_test) )
+
 
     st.subheader('3. Model Parameters')
     st.write(rf.get_params())
@@ -120,7 +141,7 @@ else:
         Y = pd.Series(diabetes.target, name='response')
         df = pd.concat( [X,Y], axis=1 )
 
-        st.markdown('The Diabetes dataset is used as the example.')
+        st.markdown('The Diabetes dataset from Sci-kit Learn is used as the example.')
         st.write(df.head(5))
 
         # Boston housing dataset
@@ -129,7 +150,7 @@ else:
         # Y = pd.Series(boston.target, name='response')
         # df = pd.concat( [X,Y], axis=1 )
 
-        # st.markdown('The Boston housing dataset is used as the example.')
+        # st.markdown('The Boston housing dataset from Sci-kit Learn is used as the example.')
         # st.write(df.head(5))
 
         build_model(df)
