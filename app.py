@@ -153,4 +153,4 @@ else:
         # st.markdown('The Boston housing dataset from Sci-kit Learn is used as the example.')
         # st.write(df.head(5))
 
-        build_model(df)
+        build_model(df) 
